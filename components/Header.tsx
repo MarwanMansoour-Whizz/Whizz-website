@@ -31,6 +31,7 @@ export default function Header() {
   }, [pathname]);
 
   async function handleLogout() {
+    setSession({ user: null, role: null, canAccessDashboard: false, canManageUsers: false });
     await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
     router.push("/login");
     router.refresh();

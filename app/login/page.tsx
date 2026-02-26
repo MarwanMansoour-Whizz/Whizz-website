@@ -28,8 +28,7 @@ function LoginForm() {
         setLoading(false);
         return;
       }
-      router.push(from);
-      router.refresh();
+      window.location.href = from;
     } catch {
       setError("Network error");
       setLoading(false);
@@ -43,10 +42,12 @@ function LoginForm() {
         <p style={{ color: "var(--muted)", fontSize: "0.9rem", marginBottom: "1.5rem" }}>
           Sign in to continue.
         </p>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <div className="form-group">
-            <label>Username</label>
+            <label htmlFor="login-username">Username</label>
             <input
+              id="login-username"
+              name="login_username"
               type="text"
               autoComplete="off"
               value={username}
@@ -56,10 +57,12 @@ function LoginForm() {
             />
           </div>
           <div className="form-group">
-            <label>Password</label>
+            <label htmlFor="login-password">Password</label>
             <input
+              id="login-password"
+              name="login_password"
               type="password"
-              autoComplete="current-password"
+              autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
