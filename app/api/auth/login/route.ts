@@ -12,11 +12,13 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    const allowedUsers = ["admin", "ziad", "amira", "may", "maysara", "heba"];
-    if (!allowedUsers.includes(username)) {
-      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
+    let configured: boolean;
+    try {
+      configured = await isPasswordConfigured(username);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "Database error";
+      return NextResponse.json({ error: msg }, { status: 503 });
     }
-    const configured = await isPasswordConfigured(username);
     if (!configured) {
       return NextResponse.json(
         {

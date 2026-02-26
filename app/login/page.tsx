@@ -48,10 +48,10 @@ function LoginForm() {
             <label>Username</label>
             <input
               type="text"
-              autoComplete="username"
+              autoComplete="off"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="admin, ziad, amira, may, maysara, heba"
+              placeholder="Username"
               required
             />
           </div>

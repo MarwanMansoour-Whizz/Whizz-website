@@ -146,12 +146,20 @@ export async function verifyUser(
   };
 }
 
-/** For login route: check if user can log in (exists in DB or has env hash). */
+/** For login route: check if user can log in (exists in DB or has env hash). Throws if DB is unreachable. */
 export async function isPasswordConfigured(username: string): Promise<boolean> {
   const lower = username.trim().toLowerCase();
-  const dbUser = await prisma.user.findUnique({
-    where: { username: lower },
-  }).catch(() => null);
+  let dbUser: { username: string } | null = null;
+  try {
+    dbUser = await prisma.user.findUnique({
+      where: { username: lower },
+      select: { username: true },
+    });
+  } catch (e) {
+    throw new Error(
+      "Database unreachable. Check that DATABASE_URL is set in your hosting environment (e.g. Netlify → Site configuration → Environment variables) and points to your Neon database."
+    );
+  }
   if (dbUser) return true;
   const role = lower as Role;
   if (!["admin", "ziad", "amira", "may", "maysara", "heba"].includes(role)) {

@@ -144,7 +144,19 @@ export default function RunProductPage() {
               </div>
               <div className="form-group">
                 <label>Page link</label>
-                <input type="url" required value={(formData.page_link as string) || ""} onChange={(e) => update("page_link", e.target.value)} placeholder="https://instagram.com/..." />
+                <input
+                  type="url"
+                  required
+                  value={(formData.page_link as string) || ""}
+                  onChange={(e) => update("page_link", e.target.value)}
+                  placeholder={
+                    (formData.platform as string) === "tiktok"
+                      ? "https://tiktok.com/..."
+                      : (formData.platform as string) === "facebook"
+                        ? "https://facebook.com/..."
+                        : "https://instagram.com/..."
+                  }
+                />
               </div>
               <div className="form-group">
                 <label>Industry</label>

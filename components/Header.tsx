@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface Session {
@@ -13,6 +13,7 @@ interface Session {
 
 export default function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   const [session, setSession] = useState<Session>({ user: null, role: null, canAccessDashboard: false, canManageUsers: false });
 
   useEffect(() => {
@@ -27,7 +28,7 @@ export default function Header() {
         })
       )
       .catch(() => setSession({ user: null, role: null, canAccessDashboard: false, canManageUsers: false }));
-  }, []);
+  }, [pathname]);
 
   async function handleLogout() {
     await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
