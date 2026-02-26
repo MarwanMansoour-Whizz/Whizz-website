@@ -131,7 +131,7 @@ export default function DashboardPage() {
               <Tooltip
                 contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 8 }}
                 labelStyle={{ color: "var(--muted)" }}
-                formatter={(value: number) => [value, "Runs"]}
+                formatter={(value: number | undefined) => [value ?? 0, "Runs"]}
                 labelFormatter={(label) => `Date: ${label}`}
               />
               <Line type="monotone" dataKey="count" stroke="var(--accent)" strokeWidth={2} dot={{ fill: "var(--accent)", r: 4 }} name="Runs" />
@@ -151,7 +151,7 @@ export default function DashboardPage() {
                 <YAxis type="category" dataKey="name" stroke="var(--muted)" fontSize={12} width={70} />
                 <Tooltip
                   contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 8 }}
-                  formatter={(value: number) => [value, "Runs"]}
+                  formatter={(value: number | undefined) => [value ?? 0, "Runs"]}
                 />
                 <Bar dataKey="uses" radius={[0, 4, 4, 0]} name="Runs">
                   {featureChartData.map((entry, i) => (
@@ -173,7 +173,7 @@ export default function DashboardPage() {
                 <YAxis stroke="var(--muted)" fontSize={12} allowDecimals={false} />
                 <Tooltip
                   contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 8 }}
-                  formatter={(value: number) => [value, "Total runs"]}
+                  formatter={(value: number | undefined) => [value ?? 0, "Total runs"]}
                 />
                 <Bar dataKey="total" fill="var(--accent)" radius={[4, 4, 0, 0]} name="Total runs" />
               </BarChart>

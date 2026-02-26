@@ -307,9 +307,9 @@ export default function RunProductPage() {
               </div>
             </>
           )}
-          {!pdfUrl && result.report && (
+          {!pdfUrl && result.report ? (
             <p style={{ color: "var(--muted)", marginBottom: "1rem" }}>Report completed. No PDF link available.</p>
-          )}
+          ) : null}
           <button type="button" className="btn" style={{ marginTop: "1rem" }} onClick={() => { setResult(null); setError(null); }}>
             Run another
           </button>

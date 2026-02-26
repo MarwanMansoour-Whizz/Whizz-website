@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
   const username = (body.username as string)?.trim()?.toLowerCase();
   const password = body.password;
   const canAccessDashboard = !!body.canAccessDashboard;
-  const canManageUsers = !!body.canManageUsers;
+  const allowManageUsers = !!body.canManageUsers;
 
   if (!username || !password) {
     return NextResponse.json(
@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
         username,
         passwordHash,
         canAccessDashboard,
-        canManageUsers,
+        canManageUsers: allowManageUsers,
       },
       select: {
         id: true,
